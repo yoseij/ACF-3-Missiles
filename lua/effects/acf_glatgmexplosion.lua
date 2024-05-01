@@ -29,10 +29,17 @@ function EFFECT:Airburst()
 	local Origin = self.Origin
 	local Radius = self.Radius
 	local Mult = self.ParticleMul
-	local sndrad = math.Clamp(Radius * 20, 75, 165)
+	local sndrad = math.Clamp(Radius * 30, 85, 140)
 	local sndradp = 300 - Radius
-	Sounds.PlaySound(self.Origin, "ambient/explosions/explode_4.wav", sndrad, math.Clamp(sndradp * 25, 15, 170), 1)
-	Sounds.PlaySound(self.Origin, "ambient/explosions/explode_9.wav", sndrad, math.Clamp(sndradp * 22, 15, 120), 1)
+
+	Sounds.PlaySound(Origin, "ambient/explosions/explode_4.wav", sndrad, math.Clamp(sndradp * 25, 15, 170), 0.8)
+
+	if Radius > 6 then
+		Sounds.PlaySound(Origin, "ambient/explosions/explode_8.wav", sndrad, math.Clamp(sndradp * 22, 15, 120), 0.8)
+	end
+
+	Sounds.PlaySound(Origin, "ambient/levels/streetwar/city_battle15.wav", sndrad, math.Clamp(sndradp * 22, 15, 120), 1)
+	Sounds.PlaySound(Origin, "ambient/levels/streetwar/city_battle19.wav", sndrad, math.Clamp(sndradp * 22, 15, 120), 1)
 	local EF = self.Emitter:Add("effects/muzzleflash" .. math.random(1, 4), Origin )
 	if EF then
 		EF:SetVelocity(self.DirVec * 100)
